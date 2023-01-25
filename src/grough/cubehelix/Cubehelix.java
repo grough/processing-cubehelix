@@ -31,9 +31,10 @@ public class Cubehelix {
 		start = value;
 		return this;
 	}
-	
+
 	/**
-	 * Set the number of R->G->B rotations that are made from the start to the end of the color scheme.
+	 * Set the number of R->G->B rotations that are made from the start to the end
+	 * of the color scheme.
 	 * 
 	 * @param value number of rotations
 	 */
@@ -41,7 +42,7 @@ public class Cubehelix {
 		rotations = value;
 		return this;
 	}
-	
+
 	/**
 	 * Set the saturation parameter, which controls how saturated the colors are.
 	 * 
@@ -51,17 +52,17 @@ public class Cubehelix {
 		saturation = value;
 		return this;
 	}
-	
+
 	/**
-	 * An alias of the `saturation` method. Included for compatibility with the original
-	 * cubehelix scheme, which uses "hue" as a misnomer for saturation.
+	 * An alias of the `saturation` method. Included for compatibility with the
+	 * original cubehelix scheme, which uses "hue" as a misnomer for saturation.
 	 * 
 	 * @param value "hue" (misnomer for saturation)
 	 */
 	public Cubehelix hue(float value) {
 		return saturation(value);
 	}
-	
+
 	/**
 	 * Set the gamma value, used to emphasize low or high intensity values.
 	 * 
@@ -97,7 +98,7 @@ public class Cubehelix {
 	 * 
 	 * @param x domain?
 	 */
-	public int read(float x) {
+	public int color(float x) {
 		if (x < 0) {
 			x = 0;
 		}
@@ -113,7 +114,48 @@ public class Cubehelix {
 	 * @param size the size of the array
 	 */
 	public int[] array(int size) {
-		return new int[size];
+		// TODO Include full range
+		int[] a = new int[size];
+		for (int i = 0; i < size; i++) {
+			a[i] = cubehelix(i / (float) size);
+		}
+		return a;
+	}
+
+	/**
+	 * Get an image of the gradient
+	 * 
+	 * @param width  image width
+	 * @param height image height
+	 */
+	public PImage image(int width, int height) {
+		PImage image = new PImage(width, height);
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				image.set(x, y, cubehelix(x / (float) width));
+			}
+		}
+		return image;
+	}
+
+	/**
+	 * Get an image of a palette
+	 * 
+	 * @param width       image width
+	 * @param height      image height
+	 * @param paletteSize number of colors in the image
+	 */
+	public PImage image(int width, int height, int paletteSize) {
+		PImage image = new PImage(width, height);
+		int[] palette = array(paletteSize);
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				int i = (int) (paletteSize * x / (float) width);
+				image.set(x, y, palette[i]);
+
+			}
+		}
+		return image;
 	}
 
 	/**
