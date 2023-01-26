@@ -1,12 +1,12 @@
 # Cubehelix Color Scheme for Processing
 
-The **processing-cubehelix** library is an implementation of Dave Green's [cubehelix color scheme](https://www.mrao.cam.ac.uk/~dag/CUBEHELIX/) for the Processing creative coding environment.
+This library provides a version of the [cubehelix color scheme](https://www.mrao.cam.ac.uk/~dag/CUBEHELIX/) for the Processing creative coding environment.
 
 ## Get Started
 
 1. Install [Processing](https://processing.org)
-2. Go to this library's [releases page](https://github.com/grough/processing-cubehelix/releases) and download the latest `Cubehelix.zip` file
-3. Extract the zip file to the "library" folder in your Processing documents folder
+2. Go to this repository's [releases page](https://github.com/grough/processing-cubehelix/releases) and download the latest `Cubehelix.zip` file
+3. Extract the zip file to the "libraries" sub-folder of your Processing documents folder
 3. Launch Processing, go to *File → Examples*, and browse the Cubehelix examples
 
 ## Usage
@@ -15,20 +15,23 @@ The **processing-cubehelix** library is an implementation of Dave Green's [cubeh
 // Import the library
 import grough.cubehelix.*;
 
-// Instantiate the class
+// Create an instance
 Cubehelix h = new Cubehelix();
 
-// Get a color in the range 0..1
-color c1 = h.color(0);
-color c2 = h.color(5/8.0);
-color c3 = h.color(1);
+// Get some colors
+color black = h.color(0);
+color white = h.color(1);
+color other = h.color(0.667);
 
-// Change the parameters (defaults shown)
+// Customize color scheme parameters (defaults shown here)
 h.start(0.5).rotations(1.5).hue(1.0).gamma(1.0);
 
-// Get an array of colors
-color[] palette = h.array(8);
+// Get an array of equally spaced colors
+color[] palette = h.array(16);
 
-// Get an image of the gradient
-PImage img = h.image(200, 100);
+// Get an image of a gradient
+PImage gradientImage = h.image(200, 100);
+
+// Get an image of a palette containing a given number of colors
+PImage paletteImage = h.image(200, 100, 16);
 ```
