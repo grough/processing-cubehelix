@@ -23,7 +23,7 @@ color black = h.color(0);
 color white = h.color(1);
 color other = h.color(0.667);
 
-// Customize color scheme parameters (defaults shown here)
+// Customize color scheme parameters (defaults shown)
 h.start(0.5).rotations(1.5).hue(1.0).gamma(1.0);
 
 // Get an array of equally spaced colors

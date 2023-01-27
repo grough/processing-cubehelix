@@ -2,16 +2,6 @@ package grough.cubehelix;
 
 import processing.core.*;
 
-/**
- * This is a template class and can be used to start a new processing Library.
- * Make sure you rename this class as well as the name of the example package
- * 'template' to your own Library naming convention.
- * 
- * (the tag example followed by the name of an example included in folder
- * 'examples' will automatically include the example in the javadoc.)
- *
- * @example Hello
- */
 
 public class Cubehelix {
 
@@ -19,7 +9,8 @@ public class Cubehelix {
 
 	float start = 0.5f;
 	float rotations = 1.5f;
-	float saturation = 1.0f;
+	float hue = 1.0f; // "hue" is a misnomer of "saturation" maintained from the original
+						// implementation
 	float gamma = 1.0f;
 
 	/**
@@ -44,48 +35,46 @@ public class Cubehelix {
 	}
 
 	/**
-	 * Set the saturation parameter, which controls how saturated the colors are.
-	 * 
-	 * @param value saturation
-	 */
-	public Cubehelix saturation(float value) {
-		saturation = value;
-		return this;
-	}
-
-	/**
 	 * An alias of the `saturation` method. Included for compatibility with the
 	 * original cubehelix scheme, which uses "hue" as a misnomer for saturation.
 	 * 
 	 * @param value "hue" (misnomer for saturation)
 	 */
 	public Cubehelix hue(float value) {
-		return saturation(value);
+		hue = value;
+		return this;
 	}
 
 	/**
 	 * Set the gamma value, used to emphasize low or high intensity values.
 	 * 
-	 * @param value the gamma
+	 * @param value gamma
 	 */
 	public Cubehelix gamma(float value) {
 		gamma = value;
 		return this;
 	}
 
-	// Convert ARGB color components to an integer.
-	private int makeColor(int a, int r, int g, int b) {
-		a = a << 24;
-		r = r << 16;
-		g = g << 8;
-		return a | r | g | b;
+	/**
+	 * Convert ARGB color components to an integer.
+	 * 
+	 * @param alpha alpha value
+	 * @param red   red
+	 * @param green Green
+	 * @param blue  Blue
+	 */
+	private int makeColor(int alpha, int red, int green, int blue) {
+		alpha = alpha << 24;
+		red = red << 16;
+		green = green << 8;
+		return alpha | red | green | blue;
 	}
 
 	// Compute the color for a value between 0..1
 	private int cubehelix(double x) {
 		double angle = 2 * Math.PI * (start / 3.0 + 1 + rotations * x);
 		x = Math.pow(x, gamma);
-		double amp = saturation * x * (1 - x) / 2.0;
+		double amp = hue * x * (1 - x) / 2.0;
 		double r = x + amp * (-0.14861 * Math.cos(angle) + 1.78277 * Math.sin(angle));
 		double g = x + amp * (-0.29227 * Math.cos(angle) - 0.90649 * Math.sin(angle));
 		double b = x + amp * (1.97294 * Math.cos(angle));
@@ -117,7 +106,7 @@ public class Cubehelix {
 		// TODO Include full range
 		int[] a = new int[size];
 		for (int i = 0; i < size; i++) {
-			a[i] = cubehelix(i / (float) size);
+			a[i] = cubehelix(i / (float) (size - 1));
 		}
 		return a;
 	}
@@ -156,6 +145,13 @@ public class Cubehelix {
 			}
 		}
 		return image;
+	}
+
+	/**
+	 * Get an image of a palette
+	 */
+	public String toString() {
+		return " start: " + start + " rotations: " + rotations + " hue: " + hue + " gamma: " + gamma;
 	}
 
 	/**
