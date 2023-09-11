@@ -2,12 +2,14 @@
 
 This library provides a version of the [cubehelix color scheme](https://www.mrao.cam.ac.uk/~dag/CUBEHELIX/) for the Processing creative coding environment.
 
+![Cubehelix gradient with default settings](gradient-example.png)
+
 ## Get Started
 
 1. Install [Processing](https://processing.org)
 2. Go to this repository's [releases page](https://github.com/grough/processing-cubehelix/releases) and download the latest `Cubehelix.zip` file
 3. Extract the zip file to the "libraries" sub-folder of your Processing documents folder
-3. Launch Processing, go to *File → Examples*, and browse the Cubehelix examples
+4. Launch Processing, go to _File → Examples_, and browse the Cubehelix examples
 
 ## Usage
 
