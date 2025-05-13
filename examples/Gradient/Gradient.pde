@@ -1,4 +1,4 @@
-import grough.cubehelix.*;
+import com.grough.cubehelix.*;
 
 Cubehelix cubehelix;
 
