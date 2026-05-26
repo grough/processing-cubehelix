@@ -11,6 +11,7 @@ public class Cubehelix {
     // "hue" is a misnomer of "saturation" maintained from the original implementation.
     float hue = 1.0f;
     float gamma = 1.0f;
+    float val = 0.5f;
 
     /**
      * Set the start color.
@@ -59,6 +60,17 @@ public class Cubehelix {
     }
 
     /**
+     * Set the gamma value, used to emphasize low or high intensity values.
+     *
+     * @param value gamma
+     * @return Self
+     */
+    public Cubehelix val(float value) {
+        val = value;
+        return this;
+    }
+
+    /**
      * Convert ARGB color components to an integer.
      *
      * @param alpha alpha value
@@ -100,6 +112,22 @@ public class Cubehelix {
             x = 1;
         }
         return cubehelix(x);
+    }
+
+    /**
+     * Return a color for the current state
+     *
+     * @return Color
+     */
+    public int color() {
+        float value = val;
+        if (val < 0) {
+            value = 0;
+        }
+        if (val > 1) {
+            value = 1;
+        }
+        return cubehelix(value);
     }
 
     /**
